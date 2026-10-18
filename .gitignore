@@ -1,0 +1,15 @@
+/config.yaml
+/.env
+/.env.*
+!/.env.example
+/webapp
+/web_app
+/bin/
+/tmp/
+/logs/
+*.log
+*.exe
+*.test
+coverage.out
+*.log.*
+__pycache__/

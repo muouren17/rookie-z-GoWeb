@@ -1,0 +1,56 @@
+# GoWeb 后端热重载配置，适用于 WSL Ubuntu。
+# 请在项目根目录中运行 air。
+root = "."
+tmp_dir = "tmp"
+# 当前项目从 config.yaml 读取配置，不额外加载 .env 文件。
+env_files = []
+
+[build]
+  # 构建整个 main 包，临时二进制集中放在 tmp 中。
+  cmd = "go build -o ./tmp/web_app ."
+  entrypoint = ["./tmp/web_app"]
+  args_bin = []
+
+  # Go 源码、应用配置和启动时读取的 SQL 改动后重新构建、启动。
+  include_ext = ["go", "yaml", "yml", "sql"]
+  include_file = ["go.mod", "go.sum"]
+
+  # 忽略临时产物、依赖、日志和前端构建输出，保留 logger 源码目录。
+  exclude_dir = ["tmp", ".git", "vendor", "testdata", "logs", "node_modules", "dist"]
+  exclude_file = ["web_app.log"]
+  exclude_regex = ['_test\.go$', '\.log(\..*)?$']
+  exclude_unchanged = true
+  follow_symlink = false
+
+  # 连续保存合并为一次构建，单位为毫秒。
+  delay = 1000
+  # 编译失败时停止旧程序，终端显示当前代码的构建错误。
+  stop_on_error = true
+
+  # main.go 处理 SIGINT/SIGTERM，HTTP 优雅关闭超时为 5 秒。
+  send_interrupt = true
+  kill_delay = "6s"
+
+  # 程序异常退出时等待修复代码，不自动反复重启。
+  rerun = false
+  # 源码位于 WSL 的 Linux 文件系统，使用文件事件监听即可。
+  poll = false
+  log = "build-errors.log"
+
+[log]
+  time = true
+  main_only = false
+  silent = false
+
+[misc]
+  # 正常退出 Air 时删除专用 tmp 目录及临时二进制。
+  clean_on_exit = true
+
+[screen]
+  # 保留重启前后的日志，便于检查错误和退出过程。
+  clear_on_rebuild = false
+  keep_scroll = true
+
+[proxy]
+  # 前端已有开发代理，后端继续直接监听 8081。
+  enabled = false

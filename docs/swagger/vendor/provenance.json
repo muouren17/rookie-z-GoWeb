@@ -1,0 +1,21 @@
+{
+  "package": "swagger-ui-dist",
+  "version": "5.33.2",
+  "license": "Apache-2.0",
+  "source": "https://registry.npmjs.org/swagger-ui-dist/-/swagger-ui-dist-5.33.2.tgz",
+  "integrity": "sha512-MyrWX06zkJRYPnIau8Qj8F6KfzS+Qj8D9AR36vCWkkC9ts1r1DYF84apgCvZBzO2Wzm7G7loCd5VS+4JLWoyLQ==",
+  "files": {
+    "swagger-ui-bundle.js": {
+      "bytes": 1587262,
+      "sha256": "6b3bfcaff3fc82c0e6992ca4b370c4f22970dec35fff60d229302b3ee7688715"
+    },
+    "swagger-ui.css": {
+      "bytes": 186154,
+      "sha256": "1ac324f7dcd27e4b9386b4bd6421271ec147e922a22c05ba24b11515e9aa6321"
+    },
+    "LICENSE.txt": {
+      "bytes": 11358,
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    }
+  }
+}

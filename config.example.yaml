@@ -1,0 +1,37 @@
+# 复制为 config.yaml 后，按本机环境填写。真实 config.yaml 不提交到 Git。
+name: "webapp"
+mode: "debug"
+port: 8081
+version: "1.0"
+start_time: "2026-01-01"
+machine_id: 1
+
+# 必填：用 openssl rand -hex 32 生成随机值后填入。
+secret_key: ""
+auth:
+  jwt_expire: 2 # access_token 有效期，单位为小时。
+
+log:
+  level: "debug"
+  filename: "web_app.log"
+  max_size: 100
+  max_age: 30
+  max_backups: 5
+
+mysql:
+  host: "127.0.0.1"
+  port: 3306
+  user: "webapp"
+  password: ""
+  dbname: "webapp"
+  max_open_conns: 100
+  max_idle_conns: 10
+  # 仅兼容旧密码格式；已有旧账号需要填写历史值，新数据库可留空。
+  secret: ""
+
+redis:
+  host: "127.0.0.1"
+  port: 6379
+  db: 0
+  password: ""
+  pool_size: 100
