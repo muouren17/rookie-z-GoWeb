@@ -13,3 +13,4 @@
 coverage.out
 *.log.*
 __pycache__/
+/config.docker.yaml

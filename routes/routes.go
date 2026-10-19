@@ -20,7 +20,7 @@ func Setup(mode string) *gin.Engine {
 		gin.SetMode(gin.ReleaseMode)
 	}
 	r := gin.New()
-	r.Use(logger.GinLogger(), logger.GinRecovery(true), middlewares.RateLimitMiddleware(2*time.Second, 1))
+	r.Use(logger.GinLogger(), logger.GinRecovery(true), middlewares.RateLimitMiddleware(10*time.Millisecond, 50))
 	v1 := r.Group("/api/v1")
 	v1.POST("/signup", controllers.SignUpHandler)
 	v1.POST("login", controllers.LoginHandler)

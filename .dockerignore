@@ -1,0 +1,9 @@
+.git
+.env*
+config*.yaml
+*.log
+*.log.*
+webapp
+web_app
+tmp
+logs
