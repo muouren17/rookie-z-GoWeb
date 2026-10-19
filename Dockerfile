@@ -22,6 +22,8 @@ WORKDIR /app
 
 COPY --from=builder /webapp ./webapp
 COPY --from=builder /src/models/create_table.sql ./models/create_table.sql
+COPY --from=builder /src/templates ./templates
+COPY --from=builder /src/static ./static
 
 EXPOSE 8081
 
