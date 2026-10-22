@@ -94,8 +94,6 @@ go vet ./...
 go build -o /tmp/goweb-check .
 ```
 
-密码相关测试使用内存数据库驱动，不会修改真实 MySQL 数据。
-
 ## 目录
 
 ```text

@@ -1,6 +1,7 @@
 package logic
 
 import (
+	"context"
 	"time"
 	"webapp/dao/mysql"
 	"webapp/dao/redis"
@@ -91,8 +92,8 @@ func GetPostList(page, size int64) (datas []*models.ApiPostDetail, err error) {
 	return
 }
 
-func GetPostList2(p *models.ParamPostList) (datas []*models.ApiPostDetail, err error) {
-	ids, err := redis.GetPostIDsInorder(p)
+func GetPostList2(ctx context.Context, p *models.ParamPostList) (datas []*models.ApiPostDetail, err error) {
+	ids, err := redis.GetPostIDsInorder(ctx, p)
 	if err != nil {
 		return
 	}
@@ -101,7 +102,7 @@ func GetPostList2(p *models.ParamPostList) (datas []*models.ApiPostDetail, err e
 		return
 	}
 
-	scores, err := redis.GetPostVoteData(ids)
+	scores, err := redis.GetPostVoteData(ctx, ids)
 	if err != nil {
 		return
 	}
@@ -148,8 +149,8 @@ func GetPostList2(p *models.ParamPostList) (datas []*models.ApiPostDetail, err e
 
 }
 
-func GetCommunityPostList(p *models.ParamPostList) (datas []*models.ApiPostDetail, err error) {
-	ids, err := redis.GetCommunityPostIDsInOrder(p)
+func GetCommunityPostList(ctx context.Context, p *models.ParamPostList) (datas []*models.ApiPostDetail, err error) {
+	ids, err := redis.GetCommunityPostIDsInOrder(ctx, p)
 	if err != nil {
 		return
 	}
@@ -158,7 +159,7 @@ func GetCommunityPostList(p *models.ParamPostList) (datas []*models.ApiPostDetai
 		return
 	}
 
-	scores, err := redis.GetPostVoteData(ids)
+	scores, err := redis.GetPostVoteData(ctx, ids)
 	if err != nil {
 		return
 	}
@@ -204,11 +205,11 @@ func GetCommunityPostList(p *models.ParamPostList) (datas []*models.ApiPostDetai
 	return
 }
 
-func GetPostListNew(p *models.ParamPostList) (datas []*models.ApiPostDetail, err error) {
+func GetPostListNew(ctx context.Context, p *models.ParamPostList) (datas []*models.ApiPostDetail, err error) {
 	if p.CommunityID == 0 {
-		datas, err = GetPostList2(p)
+		datas, err = GetPostList2(ctx, p)
 	} else {
-		datas, err = GetCommunityPostList(p)
+		datas, err = GetCommunityPostList(ctx, p)
 	}
 	if err != nil {
 		zap.L().Error("GetPostListNew failed ", zap.Error(err))

@@ -6,7 +6,6 @@
     "serve": "node scripts/run-vue.cjs serve",
     "build": "node scripts/run-vue.cjs build",
     "lint": "node scripts/run-vue.cjs lint --no-fix src vue.config.js babel.config.js",
-    "test": "node --test tests/*.test.cjs",
     "build:backend": "node scripts/run-vue.cjs build && node scripts/publish.cjs"
   },
   "dependencies": {

@@ -23,11 +23,13 @@ import (
 	"net/http"
 	"os"
 	"os/signal"
+	"sync"
 	"syscall"
 	"time"
 	"webapp/controllers"
 	"webapp/dao/mysql"
 	"webapp/dao/redis"
+	"webapp/jobs"
 	"webapp/logger"
 	"webapp/pkg/jwt"
 	"webapp/pkg/snowflake"
@@ -76,6 +78,21 @@ func main() {
 	}
 	defer cancel()
 	defer redis.Close()
+
+	jobsctx, stopjobs := context.WithCancel(context.Background())
+
+	var jobWG sync.WaitGroup
+	jobWG.Add(1)
+
+	go func() {
+		defer jobWG.Done()
+		jobs.Vote_archive(jobsctx)
+	}()
+
+	defer func() {
+		stopjobs()
+		jobWG.Wait()
+	}()
 
 	if err := snowflake.Init(settings.Conf.StartTime, settings.Conf.MachineID); err != nil {
 		fmt.Printf("init snowid failed , err:%v\n", err)

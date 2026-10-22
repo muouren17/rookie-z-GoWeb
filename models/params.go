@@ -1,5 +1,7 @@
 package models
 
+import "time"
+
 const (
 	OrderTime  = "time"
 	OrderScore = "score"
@@ -34,8 +36,16 @@ type ParamVoteData struct {
 }
 
 type ParamPostList struct {
-	Page        int64  `json:"page" form:"page"`
-	Size        int64  `form:"size"`
+	Page        int64  `json:"page" form:"page" binding:"min=1"`
+	Size        int64  `json:"size" form:"size" binding:"min=1,max=100"`
 	Order       string `form:"order"`
 	CommunityID int64  `json:"community_id" form:"community_id"`
+}
+
+type ParamSaveClosedPost struct {
+	PostID    int64     `db:"post_id"`
+	UpCount   int64     `db:"up_count"`
+	DownCount int64     `db:"down_count"`
+	Score     float64   `db:"score"`
+	ArchiveAt time.Time `db:"archived_at"`
 }

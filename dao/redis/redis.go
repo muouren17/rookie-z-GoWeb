@@ -18,10 +18,11 @@ func Init(cfg *settings.RedisConfig) (cancel context.CancelFunc, err error) {
 		// Password: viper.GetString("redis.password"),
 		// DB:       viper.GetInt("redis.db"),
 		// PoolSize: viper.GetInt("redis.pool_size"),
-		Addr:     fmt.Sprintf("%s:%d", cfg.Host, cfg.Port),
-		Password: cfg.Password,
-		DB:       cfg.DB,
-		PoolSize: cfg.PoolSize,
+		Addr:                  fmt.Sprintf("%s:%d", cfg.Host, cfg.Port),
+		Password:              cfg.Password,
+		DB:                    cfg.DB,
+		PoolSize:              cfg.PoolSize,
+		ContextTimeoutEnabled: true,
 	})
 	ctx, cancel := context.WithTimeout(context.Background(), time.Hour*24)
 

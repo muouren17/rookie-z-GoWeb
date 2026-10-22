@@ -40,3 +40,12 @@ CREATE TABLE IF NOT EXISTS`post` (
   KEY `idx_author_id` (`author_id`),
   KEY `idx_community_id` (`community_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+CREATE TABLE IF NOT EXISTS `post_vote_stat` (
+    `post_id` BIGINT NOT NULL,
+    `up_count` BIGINT NOT NULL DEFAULT 0,
+    `down_count` BIGINT NOT NULL DEFAULT 0,
+    `score` DOUBLE NOT NULL DEFAULT 0,
+    `archived_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (post_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

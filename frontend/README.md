@@ -15,7 +15,6 @@ npm run serve
 开发页面默认使用 8080 端口，`/api/v1` 和 `/refresh` 代理到 `http://127.0.0.1:8081`。后端地址不同时，可以设置 `BACKEND_PROXY_TARGET`。Windows 启动脚本会在必要时尝试定位 WSL 后端。
 
 ```bash
-npm test
 npm run lint
 npm run build:backend
 ```

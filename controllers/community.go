@@ -134,6 +134,12 @@ func GetPostDetailHandler(c *gin.Context) {
 func GetPostListHandler(c *gin.Context) {
 	page, size := getPageInfo(c)
 
+	if !(page > 0 && size > 0 && size <= 100) {
+		ResponseError(c, CodeInvalidParam)
+		c.Abort()
+		return
+	}
+
 	// 获取communityid
 	data, err := logic.GetPostList(page, size)
 	if err != nil {
@@ -173,7 +179,7 @@ func GetPostListHandler2(c *gin.Context) {
 		return
 	}
 
-	data, err := logic.GetPostListNew(p)
+	data, err := logic.GetPostListNew(c.Request.Context(), p)
 
 	if err != nil {
 		zap.L().Error("logic.GetPostList failed", zap.Error(err))
